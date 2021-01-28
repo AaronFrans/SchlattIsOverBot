@@ -1,0 +1,6 @@
+CONSUMER_KEY = Put consumer key
+CONSUMER_SECRET = Put consumer secret
+ACCES_TOKEN = Put acces token
+ACCES_TOKEN_SECRET = Put acces secret
+
+HANDLE = Put twitter handle

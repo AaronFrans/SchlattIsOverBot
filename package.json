@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/AaronFrans/SchlattIsOverBot#readme",
   "dependencies": {
-    "dotenv": "^8.2.0",
-    "twit": "^2.2.11"
+    "twit": "^2.2.11",
+    "dotenv": "^8.2.0"
   }
 }

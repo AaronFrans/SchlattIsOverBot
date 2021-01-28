@@ -1,0 +1,19 @@
+{
+  "name": "twitter-bot",
+  "version": "0.1.0",
+  "description": "Know  when @schlattisover makes a new tweet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AaronFrans/SchlattIsOverBot.git"
+  },
+  "author": "BlackRaven",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AaronFrans/SchlattIsOverBot/issues"
+  },
+  "homepage": "https://github.com/AaronFrans/SchlattIsOverBot#readme"
+}

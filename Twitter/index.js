@@ -11,7 +11,7 @@ let T = new Twit({
 
 let Twitter = {};
 
-Twitter.getLatestTweet = async () => {
+Twitter.getLatestTweet = async() => {
   let usernameResponse = await T.get(
     "https://api.twitter.com/2/users/by/username/:username",
     { username: process.env.HANDLE }
@@ -19,15 +19,18 @@ Twitter.getLatestTweet = async () => {
 
   const userId = usernameResponse.data.data.id;
 
-  console.log(userId);
-
   let tlResponse = await T.get(`https://api.twitter.com/2/users/:id/tweets`, {
     id: userId,
     exclude: "replies,retweets",
-    "tweet.fields": "created_at"
+    "tweet.fields": "created_at",
   });
 
-  console.log(tlResponse.data.data[1]);
+  let obj = {
+    value: tlResponse.data.data[0].text,
+    date: new Date(tlResponse.data.data[0].created_at),
+  };
+
+  return obj;
 };
 
 module.exports = Twitter;

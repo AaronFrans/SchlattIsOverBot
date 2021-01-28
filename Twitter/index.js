@@ -11,7 +11,7 @@ let T = new Twit({
 
 let Twitter = {};
 
-Twitter.getLatestTweet = async() => {
+Twitter.getLatestTweet = async () => {
   let usernameResponse = await T.get(
     "https://api.twitter.com/2/users/by/username/:username",
     { username: process.env.HANDLE }
@@ -27,7 +27,7 @@ Twitter.getLatestTweet = async() => {
 
   let obj = {
     value: tlResponse.data.data[0].text,
-    date: new Date(tlResponse.data.data[0].created_at),
+    date: new Date(tlResponse.data.data[0].created_at)
   };
 
   return obj;

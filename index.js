@@ -9,26 +9,25 @@ const prefix = "#";
 let timout = null;
 
 client.on(`ready`, () => {
-
-  
-  client.guilds.cache.map((guild) => sendIntroMessage(guild));
+  //client.guilds.cache.map((guild) => sendIntroMessage(guild));
 });
 
 const sendIntroMessage = (guild) => {
   let channelID;
   let channels = guild.channels.cache;
 
-  channelLoop:
-  for (let key in channels) {
-      let c = channels[key];
-      if (c[1].type === "text") {
-          channelID = c[0];
-          break channelLoop;
-      }
+  channelLoop: for (let key in channels) {
+    let c = channels[key];
+    if (c[1].type === "text") {
+      channelID = c[0];
+      break channelLoop;
+    }
   }
 
   let channel = guild.channels.cache.get(guild.systemChannelID || channelID);
-  channel.send(`Please set the channel the bot should post in via the \"#set\" command.`);
+  channel.send(
+    `Please set the channel the bot should post in via the \"#set\" command.`
+  );
 };
 
 const sendNewest = async () => {
@@ -60,6 +59,7 @@ client.on("message", (msg) => {
   if (!msg.content.startsWith(prefix) || msg.author.bot) return;
 
   const args = msg.content.slice(prefix.length).trim().split(/ +/);
+  console.log(typeof args);
   const command = args.shift().toLowerCase();
 
   switch (command) {
@@ -71,9 +71,23 @@ client.on("message", (msg) => {
       msg.channel.send("Stopped posting new tweets.");
       if (timout != null) clearTimeout(timout);
       break;
+    case "set":
+      if (checkIfChannelExist(args, msg.guild))
+        msg.channel.send("real channel");
+      else
+        msg.channel.send(
+          "The given channel does not exist.\n Please give a valid channel."
+        );
+      break;
     default:
       msg.channel.send("Not a valid command");
   }
 });
+
+checkIfChannelExist = (args, guild) => {
+  if (args.length <= 0) return false;
+
+  return guild.channels.cache.find((c) => c.name.toLowerCase() === args[0]);
+};
 
 client.login(process.env.BOT_TOKEN);

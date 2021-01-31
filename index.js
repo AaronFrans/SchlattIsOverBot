@@ -6,6 +6,7 @@ const embed = require("discord-embed-maker");
 
 let lastTweetDate = null;
 const prefix = '#';
+let timout = null;
 
 
 client.on(`ready`, () => {
@@ -32,7 +33,7 @@ const sendNewest = async () => {
     channel.send({ embed: embed });
   }
 
-  setTimeout(sendNewest, 10000);
+  timout = setTimeout(sendNewest, 10000).;
 };
 
 client.on("message", (msg) => {
@@ -48,6 +49,8 @@ client.on("message", (msg) => {
       break;
     case 'stop':
       msg.channel.send('Stopped posting new tweets.');
+      if(timout != null)
+       clearTimeout(timout);
       break;
     default:
       msg.channel.send('Not a valid command');

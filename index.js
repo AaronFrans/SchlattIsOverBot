@@ -5,14 +5,11 @@ const client = new Discord.Client();
 const embed = require("discord-embed-maker");
 
 let lastTweetDate = null;
+const prefix = '#';
+
 
 client.on(`ready`, () => {
-  startInterval();
 });
-
-const startInterval = () => {
-  sendNewest();
-};
 
 const sendNewest = async () => {
   const channel = client.channels.cache.find(
@@ -32,7 +29,6 @@ const sendNewest = async () => {
     embed.setImage(
       "https://static.wikia.nocookie.net/my-hero-academia-the-pinnacle/images/4/44/Jonathan_schlatt.jpg/revision/latest/scale-to-width-down/256?cb=20190814233055"
     );
-    console.log(message);
     channel.send({ embed: embed });
   }
 
@@ -40,8 +36,21 @@ const sendNewest = async () => {
 };
 
 client.on("message", (msg) => {
-  if (msg.content === "ping") {
-    msg.reply("pong");
+  if (!msg.content.startsWith(prefix) || msg.author.bot) return;
+
+  const args = msg.content.slice(prefix.length).trim().split(/ +/);
+  const command = args.shift().toLowerCase();
+
+  switch(command) {
+    case 'start':
+      msg.channel.send('Started posting new tweets.');
+      sendNewest();
+      break;
+    case 'stop':
+      msg.channel.send('Stopped posting new tweets.');
+      break;
+    default:
+      msg.channel.send('Not a valid command');
   }
 });
 
